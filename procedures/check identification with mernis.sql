@@ -1,38 +1,39 @@
 /*
-Function:			dbo.kSql_CheckIdentificationWithMernis
-Create Date:        2021.05.17
-Author:             Karcan Ozbal
+Procedure	:	dbo.kSql_CheckIdentificationWithMernis
+Create Date	:	2021.05.17
+Author		:	Karcan Ozbal
 
-Description:        Checks identity for Turkish citizens with the mernis service.
+Description	:	Checks identity for Turkish citizens with the mernis service.
 
-Parameter(s):       @IdentificationNumber	:	11 character identification number
-					@FirstName				:	First name of person.
-					@LastName				:	Last name of person.
-					@BirthYear				:	Birth year of person.
-					@Result (bit OUTPUT)	:	true / false result of check.
+Parameter(s):	@IdentificationNumber	:	11 character identification number
+				@FirstName				:	First name of person.
+				@LastName				:	Last name of person.
+				@BirthYear				:	Birth year of person.
+				@Result (bit OUTPUT)	:	true / false result of check.
 
-Usage:				DECLARE @Output bit
-					EXEC kSql_CheckIdentificationWithMernis 11111111111, 'Karcan', 'Özbal' , 1993, @Output OUTPUT
-					SELECT @Output as Result
+Usage		:	DECLARE @Output bit
+				EXEC kSql_CheckIdentificationWithMernis 11111111111, 'Karcan', 'Özbal' , 1993, @Output OUTPUT
+				SELECT @Output as Result
 
-Dependencies:		Ole Automation:
-						sp_configure 'show advanced options', 1;
-						GO
-						RECONFIGURE;
-						GO
-						sp_configure 'Ole Automation Procedures', 1;
-						GO
-						RECONFIGURE;
-						GO
+Dependencies:	Ole Automation:
+					sp_configure 'show advanced options', 1;
+					GO
+					RECONFIGURE;
+					GO
+					sp_configure 'Ole Automation Procedures', 1;
+					GO
+					RECONFIGURE;
+					GO
 
-					Chilkat ActiveX:
-						https://www.chilkatsoft.com/downloads_ActiveX.asp
+				Chilkat ActiveX:
+					https://www.chilkatsoft.com/downloads_ActiveX.asp
 
 Summary of Commits : 
 ############################################################################################
 Date(yyyy-MM-dd hh:mm)		Author				Commit
 --------------------------	------------------	--------------------------------------------
 2021.05.17 19:00			Karcan Ozbal		first commit.. 
+2021.05.17 19:18			Karcan Ozbal		fixed some indent problem.
 ############################################################################################
 
 */
