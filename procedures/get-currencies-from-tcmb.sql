@@ -4,28 +4,28 @@ BEGIN
 	-- Temp Tables
 	BEGIN
 		CREATE TABLE #CurrencyXML(
-			RequestBody			  XML
+			RequestBody			XML
 		);
 
 		CREATE TABLE #CurrencyList(
-			[Date]			DATE,
+			[Date]				DATE,
 			SourceSymbol		VARCHAR(3),
 			TargetSymbol		VARCHAR(3),
-			Quantity		TINYINT,
-			ForexBuying		DECIMAL(7,5),
+			Quantity			TINYINT,
+			ForexBuying			DECIMAL(7,5),
 			ForexSelling		DECIMAL(7,5), 
 			BanknoteBuying		DECIMAL(7,5), 
 			BanknoteSelling		DECIMAL(7,5)
 		);
 
 		CREATE TABLE #CrossCurrencyList(
-			[Date]				    DATE,
+			[Date]				DATE,
 			SourceQuantity		TINYINT,
-			SourceSymbol		  VARCHAR(3),
+			SourceSymbol		VARCHAR(3),
 			TargetQuantity		TINYINT,
-			TargetSymbol		  VARCHAR(3),
-			ForexBuying			  DECIMAL(11,5),
-			ForexSelling		  DECIMAL(11,5), 
+			TargetSymbol		VARCHAR(3),
+			ForexBuying			DECIMAL(11,5),
+			ForexSelling		DECIMAL(11,5), 
 			BanknoteBuying		DECIMAL(11,5), 
 			BanknoteSelling		DECIMAL(11,5)
 		);
@@ -35,12 +35,12 @@ BEGIN
 	BEGIN
 		DECLARE	@vCurrentDatetime	DATETIME = GETDATE()
 
-		DECLARE	 @vURL			  VARCHAR(50)
-				    ,@vDate			  DATE = @pDate
-				    ,@vObject		  INT
-				    ,@vResult		  INT
-				    ,@vHttpStatus	INT
-				    ,@vXMLResult	XML
+		DECLARE	 @vURL			VARCHAR(50)
+				,@vDate			DATE = @pDate
+				,@vObject		INT
+				,@vResult		INT
+				,@vHttpStatus	INT
+				,@vXMLResult	XML
 	END
 
 	-- Initialize
@@ -79,12 +79,12 @@ BEGIN
 
 		INSERT INTO #CurrencyList ([Date], SourceSymbol, TargetSymbol, Quantity, ForexBuying, ForexSelling, BanknoteBuying, BanknoteSelling)
 		SELECT 
-			 [Date]				    =	@vDate
-			,SourceSymbol		  =	x.Rec.value('./@CurrencyCode', 'varchar(3)')
-			,TargetSymbol		  =	'TRY'
-			,Quantity			    =	x.Rec.query('./Unit').value('.','tinyint')
-			,ForexBuying		  =	x.Rec.query('./ForexBuying').value('.','float')
-			,ForexSelling		  =	x.Rec.query('./ForexSelling').value('.','float')
+			 [Date]				=	@vDate
+			,SourceSymbol		=	x.Rec.value('./@CurrencyCode', 'varchar(3)')
+			,TargetSymbol		=	'TRY'
+			,Quantity			=	x.Rec.query('./Unit').value('.','tinyint')
+			,ForexBuying		=	x.Rec.query('./ForexBuying').value('.','float')
+			,ForexSelling		=	x.Rec.query('./ForexSelling').value('.','float')
 			,BanknoteBuying		=	x.Rec.query('./BanknoteBuying').value('.','float')
 			,BanknoteSelling	=	x.Rec.query('./BanknoteSelling').value('.','float')
 		FROM 
@@ -98,11 +98,11 @@ BEGIN
 		SELECT 
 			[Date],
 			SourceQuantity		= 1,
-			SourceSymbol		  = 'TRY',
+			SourceSymbol		= 'TRY',
 			TargetQuantity		= 1,
-			TargetSymbol		  = SourceSymbol,
-			ForexBuying			  = (1.0 / NULLIF(ForexBuying,0)) * Quantity,
-			ForexSelling		  = (1.0 / NULLIF(ForexSelling,0)) * Quantity,
+			TargetSymbol		= SourceSymbol,
+			ForexBuying			= (1.0 / NULLIF(ForexBuying,0)) * Quantity,
+			ForexSelling		= (1.0 / NULLIF(ForexSelling,0)) * Quantity,
 			BanknoteBuying		= (1.0 / NULLIF(BanknoteBuying,0)) * Quantity,
 			BanknoteSelling		= (1.0 / NULLIF(BanknoteSelling,0)) * Quantity
 		FROM 
