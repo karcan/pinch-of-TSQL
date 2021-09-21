@@ -8,12 +8,12 @@ BEGIN
 		);
 
 		CREATE TABLE #CurrencyList(
-			[Date]            DATE,
-			SourceSymbol		  VARCHAR(3),
-			TargetSymbol		  VARCHAR(3),
-			Quantity			    TINYINT,
-			ForexBuying			  DECIMAL(7,5),
-			ForexSelling		  DECIMAL(7,5), 
+			[Date]			DATE,
+			SourceSymbol		VARCHAR(3),
+			TargetSymbol		VARCHAR(3),
+			Quantity		TINYINT,
+			ForexBuying		DECIMAL(7,5),
+			ForexSelling		DECIMAL(7,5), 
 			BanknoteBuying		DECIMAL(7,5), 
 			BanknoteSelling		DECIMAL(7,5)
 		);
